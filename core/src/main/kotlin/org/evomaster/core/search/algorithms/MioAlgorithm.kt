@@ -34,8 +34,16 @@ class MioAlgorithm<T> : SearchAlgorithm<T>() where T : Individual {
 
                     archive.addIfNeeded(this)
                     sampler.feedback(this)
-                    if (sampler.isLastSeededIndividual())
+
+                    if (sampler.numberOfNotExecutedSeededIndividuals() > 0){
+                        println("Individuals left in seed: ${sampler.numberOfNotExecutedSeededIndividuals()}")
+                    }
+                    if (sampler.isLastSeededIndividual()) {
                         archive.archiveCoveredStatisticsBySeededTests()
+
+                        println("Individuals left in seed: ${sampler.numberOfNotExecutedSeededIndividuals()}")
+                        println(archive.coveredStatisticsBySeededTests?.coveredTargets.toString())
+                    }
                 }
 
                 return

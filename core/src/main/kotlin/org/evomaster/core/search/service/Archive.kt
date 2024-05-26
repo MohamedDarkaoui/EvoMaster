@@ -84,7 +84,7 @@ class Archive<T> where T : Individual {
 
     data class CoveredStatisticsBySeededTests<G> (val coveredTargets: List<Int>, val uniquePopulationsDuringSeeding : List<EvaluatedIndividual<G>>) where G: Individual
 
-    private var coveredStatisticsBySeededTests : CoveredStatisticsBySeededTests<T>? = null
+    var coveredStatisticsBySeededTests : CoveredStatisticsBySeededTests<T>? = null
 
 
     /**

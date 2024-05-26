@@ -77,6 +77,7 @@ class TestSuiteWriter {
     ) {
 
         val name = TestSuiteFileName(solution.getFileName())
+        println("\t the file name is: $name")
         val content = convertToCompilableTestCode(solution, name, snapshotTimestamp, controllerName, controllerInput)
         saveToDisk(content, config, name)
     }
@@ -88,9 +89,10 @@ class TestSuiteWriter {
                                 controllerName: String?,
                                 controllerInput: String?,
                                 snapshotTimestamp: String = ""){
-
+        println("Export test cases during seeding: ${config.exportTestCasesDuringSeeding}")
+        println("Empty: ${solution.individualsDuringSeeding.isEmpty()}")
         if (!config.exportTestCasesDuringSeeding || solution.individualsDuringSeeding.isEmpty()) return
-
+        println("Going To Save In file:")
         val solutionDuringSeeding = solution.extractSolutionDuringSeeding()
         writeTests(solutionDuringSeeding, controllerName, controllerInput, snapshotTimestamp)
 

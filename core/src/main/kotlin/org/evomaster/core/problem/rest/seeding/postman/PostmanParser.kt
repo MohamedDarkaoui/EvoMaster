@@ -57,9 +57,19 @@ class PostmanParser(
 
     private fun getRestAction(defaultRestActions: List<RestCallAction>, postmanRequest: Request): RestCallAction? {
         val verb = postmanRequest.method
-        val path = getPath(postmanRequest.url.path)
+        ////
+        val p = getPath(postmanRequest.url.path)
+        val path = if (p.endsWith('/')){
+            p.dropLast(1)
+        } else {
+            p
+        }
+        ///
         val originalRestAction = defaultRestActions.firstOrNull { it.verb.toString() == verb && it.path.matches(path) }
-
+        println("SEED:\t Verb: $verb, Path: $path")
+//        for (action in defaultRestActions) {
+//            println("SWAGGER:\t Verb: ${action.verb}, Path: ${action.path}")
+//        }
         if (originalRestAction == null)
             log.warn("Endpoint {} not found in the Swagger", "$verb:$path")
 

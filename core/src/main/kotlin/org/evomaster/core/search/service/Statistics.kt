@@ -108,7 +108,7 @@ class Statistics : SearchListener {
                 log.warn("Calling collection of snapshots too early: $snapshotThreshold")
             } else {
                 //this happens if interval is not a divider of 100
-                takeSnapshot()
+                //takeSnapshot()
             }
         }
 
@@ -143,16 +143,17 @@ class Statistics : SearchListener {
     }
 
     override fun newActionEvaluated() {
+        takeSnapshot() // ignore threshold, always take snapshot
         if (snapshotThreshold <= 0) {
             //not collecting snapshot data
             return
         }
 
-        val elapsed = 100 * time.percentageUsedBudget()
-
-        if (elapsed > snapshotThreshold) {
-            takeSnapshot()
-        }
+//        val elapsed = 100 * time.percentageUsedBudget()
+//
+//        if (elapsed > snapshotThreshold) {
+//            takeSnapshot()
+//        }
     }
 
     private fun takeSnapshot() {
@@ -161,7 +162,7 @@ class Statistics : SearchListener {
 
         val snap = getData(solution)
 
-        val key = if (snapshotThreshold <= 100) snapshotThreshold else 100.0
+        val key = snapshotThreshold // remove constraints, lets us take more snapshots
 
         snapshots[key] = snap
 
@@ -183,7 +184,6 @@ class Statistics : SearchListener {
         val targetsInfo = solution.overall.unionWithBootTimeCoveredTargets(null, idMapper, bootTimeInfo)
         val linesInfo = solution.overall.unionWithBootTimeCoveredTargets(ObjectiveNaming.LINE, idMapper, bootTimeInfo)
         val branchesInfo = solution.overall.unionWithBootTimeCoveredTargets(ObjectiveNaming.BRANCH, idMapper, bootTimeInfo)
-
         val rpcInfo = sutInfo?.rpcProblem
 
         val list: MutableList<Pair> = mutableListOf()
