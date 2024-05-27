@@ -37,7 +37,7 @@ class Archive<T> where T : Individual {
     private lateinit var dpc: AdaptiveParameterControl
 
     @Inject
-    private lateinit var idMapper: IdMapper
+    public lateinit var idMapper: IdMapper
 
     @Inject
     private lateinit var time: SearchTimeController

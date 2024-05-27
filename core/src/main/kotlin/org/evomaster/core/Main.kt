@@ -44,6 +44,7 @@ import org.evomaster.core.search.service.monitor.SearchProcessMonitor
 import org.evomaster.core.search.service.mutator.genemutation.ArchiveImpactSelector
 import java.lang.reflect.InvocationTargetException
 import kotlin.system.exitProcess
+import org.slf4j.LoggerFactory
 
 
 /**
@@ -51,6 +52,7 @@ import kotlin.system.exitProcess
  */
 class Main {
     companion object {
+        private val logger = LoggerFactory.getLogger(Main::class.java)
 
         /**
          * Main entry point of the EvoMaster application
@@ -246,6 +248,8 @@ class Main {
                     val rc = injector.getInstance(RemoteController::class.java)
                     val unitsInfo = rc.getSutInfo()?.unitsInfoDto
                     val bootTimeInfo = rc.getSutInfo()?.bootTimeInfoDto
+                    // i think we can
+
 
                     val targetsInfo = solution.overall.unionWithBootTimeCoveredTargets(null, idMapper, bootTimeInfo)
                     val linesInfo = solution.overall.unionWithBootTimeCoveredTargets(ObjectiveNaming.LINE, idMapper, bootTimeInfo)
@@ -279,6 +283,7 @@ class Main {
                         //assert(linesInfo.total <= totalLines){ "WRONG COVERAGE: ${linesInfo.total} > $totalLines"}
 
                         info("Covered targets (lines, branches, faults, etc.): ${targetsInfo.total}")
+
 
                         if(totalLines == 0 || units == 0){
                             logError("Detected $totalLines lines to cover, for a total of $units units/classes." +

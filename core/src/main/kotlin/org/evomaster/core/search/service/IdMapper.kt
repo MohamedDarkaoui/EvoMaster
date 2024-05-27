@@ -142,7 +142,7 @@ class IdMapper {
 
     private val mapping: MutableMap<Int, String> = mutableMapOf()
 
-    private val reverseMapping: MutableMap<String, Int> = mutableMapOf()
+    public val reverseMapping: MutableMap<String, Int> = mutableMapOf()
 
     /**
      * Counter used to create local id, based on the return values

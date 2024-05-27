@@ -30,4 +30,12 @@ public class TargetInfoDto {
      * But this means that {@code value} must be 0
      */
     public Integer actionIndex;
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setDescriptiveId(String descriptiveId) {
+        this.descriptiveId = descriptiveId;
+    }
 }
